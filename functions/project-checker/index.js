@@ -75,19 +75,15 @@ const webhookHandler = async (req, res) => {
 
         await sendMail();
 
-        return {
-            statusCode: 204
-        }
+        return new Response(null, { status: 204 });
     } catch (error) {
         console.error(error);
-        return {
-            statusCode: 500
-        }
+        return new Response({ message: error.message }, { status: 500 });
     }
 };
 
 export default webhookHandler;
 
-export const config = { 
+export const config = {
     path: "/hooking"
-}
+};
