@@ -78,12 +78,13 @@ const webhookHandler = async (req, res) => {
         return new Response(null, { status: 204 });
     } catch (error) {
         console.error(error);
-        return new Response({ message: error.message }, { status: 500 });
+        return new Response(error.message, { status: 500 });
     }
 };
 
 export default webhookHandler;
 
 export const config = {
-    path: "/hooking"
+    path: "/hooking",
+    schedule: "@daily"
 };
