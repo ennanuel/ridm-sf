@@ -85,6 +85,6 @@ const webhookHandler = async (req, res) => {
 export default webhookHandler;
 
 export const config = {
-    path: "/hooking",
+    path: "/fake",
     schedule: "@daily"
 };
