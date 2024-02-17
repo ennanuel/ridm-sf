@@ -1,6 +1,6 @@
-import express from "express";
-import dotenv from "dotenv";
-import nodemailer from "nodemailer";
+const express = require("express");
+const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -27,7 +27,7 @@ const createOptions = ({ subject, name, email, text }) => ({
 });
 
 const sitesToTest = [
-    { link: "https://cardstore-api.onrender.com/api/auth", name: "CardStore Backend" },
+    { link: "https://cardstore-api.onrender.com/auth", name: "CardStore Backend" },
 ]
 
 const webhookHandler = async (req, res) => {
@@ -35,18 +35,16 @@ const webhookHandler = async (req, res) => {
         const result = [];
 
         for (let site of sitesToTest) {
+            const timeStarted = Date.now();
+            const siteTestResult = { name: site.name };
             try {
-                console.log("Checking %", site.name);
-                const timeStarted = Date.now();
                 await axios.get(site.link);
-                const timeEnded = Date.now();
-                const timeElapsed = timeEnded - timeStarted;
-                const timeInSeconds = Math.ceil(timeElapsed / 1000);
-                result.push({ name: site.name, passed: true, time: timeInSeconds });
+                siteTestResult.passed = true;
             } catch (error) {
-                console.log("Check failed");
-                result.push({ name: site.name, passed: false });
+                siteTestResult.passed = false;
             }
+            siteTestResult.time = `${(Date.now() - timeStarted) / 1000} sec`;
+            result.push(siteTestResult)
         };
 
         const transporter = nodemailer.createTransport({
@@ -85,7 +83,7 @@ const webhookHandler = async (req, res) => {
         return res.status(204).json();
     } catch (error) {
         console.error(error);
-        return res.stauts(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 
