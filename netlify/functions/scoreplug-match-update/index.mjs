@@ -10,6 +10,7 @@ function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
     if (currentTime >= timetoEndCall) return 0;
     const timeRemainingInMilliseconds = timetoEndCall - currentTime;
     const timesToMakeCall = Math.ceil(timeRemainingInMilliseconds / numberOfSecondsInMilliSeconds);
+    console.warn(timesToMakeCall);
     return timesToMakeCall;
 };
 
