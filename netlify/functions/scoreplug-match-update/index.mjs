@@ -11,7 +11,7 @@ const webhookHandler = async (event) => {
         // const { timeToRun } = requestBody;
         const timeToRun = Date.now() + 60000;
         const timeRemaining = timeToRun - Date.now();
-        console.log(timeToRun, timeRemaining);
+        console.log(timeRemaining);
 
         if (timeRemaining > 0) {
             console.warn("Delaying for five seconds")
@@ -19,7 +19,7 @@ const webhookHandler = async (event) => {
 
             axios.post('https://scoreplug-webhook.netlify.app/match-update', { timeToRun })
                 .then(() => console.warn("nothing will happen"))
-                .catch((error) => console.warn(error.message));
+                .catch((error) => console.error("Request cancelled!"));
             source.cancel("Request cancelled");
             
             return new Response(`Called the function again ${timeRemaining} milliseconds remaining`, { status: 200 });
