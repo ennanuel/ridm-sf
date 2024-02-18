@@ -10,7 +10,7 @@ const webhookHandler = async (event) => {
         console.warn("Delaying for five seconds")
         await delayForFiveSeconds();
 
-        axios.post('https://google.com', { timeToRun })
+        axios.post('https://google.com')
             .then(() => console.warn("nothing will happen"))
             .catch((error) => console.error(error.message));
         source.cancel("Request cancelled");
