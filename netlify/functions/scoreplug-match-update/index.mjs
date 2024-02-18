@@ -4,7 +4,8 @@ const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
 
 function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
-    const timetoEndCall = (new Date(time)).getTime();
+    const timeInOneMinute = Date.now() * 60000;
+    const timetoEndCall = (new Date(timeInOneMinute)).getTime();
     const currentTime = Date.now();
     if (currentTime >= timetoEndCall) return 0;
     const timeRemainingInMilliseconds = timetoEndCall - currentTime;
@@ -14,14 +15,14 @@ function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
 
 const delayForFiveSeconds = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
-const webhookHandler = async (event, context) => {
+const webhookHandler = async (event) => {
     try {
         const requestBody = await event.json();
         const { timeToRun, timesCalled } = requestBody;
         let timesToMakeCall = 0;
         console.log(timeToRun, timesCalled);
 
-        if (!timesCalled && !timeToRun) return new Response("Nothing to do", { status: 200 });
+        if (!timesCalled && !timeToRun) return new Response(null, { status: 204 });
         else if (!timesCalled) timesToMakeCall = getTimesToMakeCall(timeToRun);
         else timesToMakeCall = timesCalled;
 
