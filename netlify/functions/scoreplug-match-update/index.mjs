@@ -28,7 +28,7 @@ const webhookHandler = async (event, context) => {
         await delayForFiveSeconds();
         timesToMakeCall--
 
-        axios.post('/match-update', { timeToRun, timesCalled: timesToMakeCall })
+        axios.post('https://scoreplug-webhook.netlify.app/match-update', { timeToRun, timesCalled: timesToMakeCall })
             .then(() => console.warn("nothing happened"))
             .catch((error) => console.warn(error.message));
         source.cancel("Request cancelled");
