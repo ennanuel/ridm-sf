@@ -19,7 +19,7 @@ const webhookHandler = async (event, context) => {
         let timesToMakeCall = 0;
         console.log(timeToRun, timesCalled);
 
-        if (!timesCalled && !timeToRun) return new Response({ message: "nothing to do" }, { status: 200 });
+        if (!timesCalled && !timeToRun) return new Response("Nothing to do", { status: 200 });
         else if (timeToRun && !timesCalled) timesToMakeCall = getTimesToMakeCall(timeToRun);
         else timesToMakeCall = timesCalled;
 
@@ -29,7 +29,7 @@ const webhookHandler = async (event, context) => {
             .catch((error) => console.error(error.message));
         source.cancel("Request cancelled");
 
-        return new Response({ message: `called again: ${timesToMakeCall} times`}, { status: 200 });
+        return new Response(`called again: ${timesToMakeCall} times`, { status: 200 });
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
