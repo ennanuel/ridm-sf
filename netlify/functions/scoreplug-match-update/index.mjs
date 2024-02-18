@@ -10,7 +10,9 @@ function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
     const timeRemainingInMilliseconds = timetoEndCall - currentTime;
     const timesToMakeCall = Math.ceil(timeRemainingInMilliseconds / numberOfSecondsInMilliSeconds);
     return timesToMakeCall;
-}
+};
+
+const delayForFiveSeconds = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 const webhookHandler = async (event, context) => {
     try {
@@ -24,6 +26,8 @@ const webhookHandler = async (event, context) => {
         else timesToMakeCall = timesCalled;
 
         timesToMakeCall--
+        await delayForFiveSeconds();
+        
         axios.post('/match-update', { timeToRun, timesCalled: timesToMakeCall })
             .then(() => console.log("nothing happened"))
             .catch((error) => console.error(error.message));
