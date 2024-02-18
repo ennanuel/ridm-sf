@@ -3,39 +3,30 @@ import axios from "axios";
 const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
 
-function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
-    const timeInOneMinute = Date.now() + 60000;
-    const timetoEndCall = (new Date(timeInOneMinute)).getTime();
-    const currentTime = Date.now();
-    if (currentTime >= timetoEndCall) return 0;
-    const timeRemainingInMilliseconds = timetoEndCall - currentTime;
-    const timesToMakeCall = Math.ceil(timeRemainingInMilliseconds / numberOfSecondsInMilliSeconds);
-    console.warn(timesToMakeCall, timeRemainingInMilliseconds, currentTime, timetoEndCall);
-    return timesToMakeCall;
-};
-
 const delayForFiveSeconds = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 const webhookHandler = async (event) => {
     try {
         const requestBody = await event.json();
-        const { timeToRun, timesCalled } = requestBody;
-        let timesToMakeCall = 0;
-        console.log(timeToRun, timesCalled);
+        // const { timeToRun } = requestBody;
+        const timeToRun = Date.now() + 60000;
+        const timeRemaining = timeToRun - Date.now();
+        console.log(timeToRun, timeRemaining);
 
-        if (!timesCalled && !timeToRun) return new Response(null, { status: 204 });
-        else if (!timesCalled) timesToMakeCall = getTimesToMakeCall(timeToRun);
-        else timesToMakeCall = timesCalled;
+        if (timeRemaining > 0) {
+            console.warn("Delaying for five seconds")
+            await delayForFiveSeconds();
 
-        await delayForFiveSeconds();
-        timesToMakeCall--
+            axios.post('https://scoreplug-webhook.netlify.app/match-update', { timeToRun })
+                .then(() => console.warn("nothing will happen"))
+                .catch((error) => console.warn(error.message));
+            source.cancel("Request cancelled");
+            
+            return new Response(`Called the function again ${timeRemaining} milliseconds remaining`, { status: 200 });
+        }
+        console.log("There won't be any delays");
 
-        axios.post('https://scoreplug-webhook.netlify.app/match-update', { timeToRun, timesCalled: timesToMakeCall })
-            .then(() => console.warn("nothing happened"))
-            .catch((error) => console.warn(error.message));
-        source.cancel("Request cancelled");
-
-        return new Response(`called again: ${timesToMakeCall} times`, { status: 200 });
+        return new Response(null, { status: 204 });
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
