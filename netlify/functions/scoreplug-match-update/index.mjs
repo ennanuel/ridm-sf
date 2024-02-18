@@ -4,13 +4,13 @@ const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
 
 function getTimesToMakeCall(time, numberOfSecondsInMilliSeconds = 5000) {
-    const timeInOneMinute = Date.now() * 60000;
+    const timeInOneMinute = Date.now() + 60000;
     const timetoEndCall = (new Date(timeInOneMinute)).getTime();
     const currentTime = Date.now();
     if (currentTime >= timetoEndCall) return 0;
     const timeRemainingInMilliseconds = timetoEndCall - currentTime;
     const timesToMakeCall = Math.ceil(timeRemainingInMilliseconds / numberOfSecondsInMilliSeconds);
-    console.warn(timesToMakeCall);
+    console.warn(timesToMakeCall, timeRemainingInMilliseconds, currentTime, timetoEndCall);
     return timesToMakeCall;
 };
 
