@@ -17,14 +17,16 @@ const webhookHandler = async (event, context) => {
         const requestBody = await event.json();
         const { timeToRun, timesCalled } = requestBody;
         let timesToMakeCall = 0;
-        console.log()
+        console.log(timeToRun, timesCalled);
 
         if (!timesCalled && !timeToRun) return new Response({ message: "nothing to do" }, { status: 200 });
         else if (timeToRun && !timesCalled) timesToMakeCall = getTimesToMakeCall(timeToRun);
         else timesToMakeCall = timesCalled;
 
         timesToMakeCall--
-        axios.post('/match-update', { timeToRun, timesCalled: timesToMakeCall });
+        axios.post('/match-update', { timeToRun, timesCalled: timesToMakeCall })
+            .then(() => console.log("nothing happened"))
+            .catch((error) => console.error(error.message));
         source.cancel("Request cancelled");
 
         return new Response({ message: `called again: ${timesToMakeCall} times`}, { status: 200 });
