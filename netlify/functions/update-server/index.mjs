@@ -1,4 +1,5 @@
 import axios from "axios";
+import { delayForFiveSeconds } from "../utils/delay";
 
 const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
@@ -15,6 +16,8 @@ const webhookHandler = async () => {
         axios.put(URL, options)
             .then(() => console.warn("nothing will happen"))
             .catch((error) => console.error(error.message));
+        
+        await delayForFiveSeconds();
         
         source.cancel("Request cancelled to avoiding going over runtime limit");
 
