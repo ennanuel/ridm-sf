@@ -18,7 +18,7 @@ const webhookHandler = async (event) => {
         
         source.cancel("Request cancelled to avoid going over runtime limit");
             
-        return new Response('Match update started', { status: 204 });
+        return new Response('Match update started', { status: 200 });
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
