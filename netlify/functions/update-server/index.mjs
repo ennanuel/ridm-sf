@@ -1,10 +1,24 @@
 import axios from "axios";
 
-const webhookHandler = async (req, res) => {
-    try {
-        console.log("This should show daily");
+const cancelToken = axios.CancelToken;
+const source = cancelToken.source();
 
-        return new Response(null, { status: 204 });
+const webhookHandler = async () => {
+    try {
+        const URL = `${process.env.SERVER_URL}/maintenance/update/server`;
+        const options = {
+            headers: {
+                'auth-token': process.env.AUTH_TOKEN
+            }
+        };
+
+        axios.put(URL, options)
+            .then(() => console.warn("nothing will happen"))
+            .catch((error) => console.error(error.message));
+        
+        source.cancel("Request cancelled to avoiding going over runtime limit");
+
+        return new Response('Update Started!', { status: 200 });
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
