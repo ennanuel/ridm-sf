@@ -4,11 +4,10 @@ import { cancelAfterFiveSeconds } from "../../../utils/cancel";
 const webhookHandler = async (event) => {
     try {
         const URL = `${process.env.SERVER_URL}/maintenance/update/match`;
-        const options = {
-            headers: {
-                'auth-token': process.env.AUTH_TOKEN
-            }
-        };
+        const headers = new Headers();
+        headers.append('auth-token', process.env.AUTH_TOKEN);
+        
+        const options = { headers };
         
         cancelAfterFiveSeconds();
 
