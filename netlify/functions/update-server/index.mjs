@@ -1,5 +1,5 @@
 import axios from "axios";
-import { delayForFiveSeconds } from "../utils/delay";
+import { delayForFiveSeconds } from "../../../utils/delay";
 
 const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
