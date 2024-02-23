@@ -1,5 +1,12 @@
-const delayForFiveSeconds = () => new Promise((resolve) => setTimeout(resolve, 5000));
+import axios from "axios";
+
+const cancelToken = axios.CancelToken;
+const source = cancelToken.source();
+
+const cancelAfterFiveSeconds = () => setTimeout(() => {
+    source.cancel("Time out!");
+});
 
 export {
-    delayForFiveSeconds
+    cancelAfterFiveSeconds
 }
