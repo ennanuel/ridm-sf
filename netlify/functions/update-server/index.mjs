@@ -11,7 +11,7 @@ const webhookHandler = async () => {
 
         cancelAfterFiveSeconds();
 
-        await axios.put(URL, options)
+        await axios.put(URL, {}, options)
             .then(() => console.warn("nothing will happen"))
             .catch((error) => { throw error });
 

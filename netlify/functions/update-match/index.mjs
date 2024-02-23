@@ -6,12 +6,12 @@ const webhookHandler = async (event) => {
         const URL = `${process.env.SERVER_URL}/maintenance/update/match`;
         const headers = new Headers();
         headers.append('auth-token', process.env.AUTH_TOKEN);
-        
+
         const options = { headers };
         
         cancelAfterFiveSeconds();
 
-        await axios.put(URL, options)
+        await axios.put(URL, {}, options)
             .then(() => console.log("API Call Successful!"))
             .catch((error) => { throw error });
             
