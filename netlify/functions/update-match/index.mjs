@@ -1,8 +1,5 @@
 import axios from "axios";
-import { delayForFiveSeconds } from "../../../utils/delay";
-
-const cancelToken = axios.CancelToken;
-const source = cancelToken.source();
+import { cancelAfterFiveSeconds } from "../../../utils/cancel";
 
 const webhookHandler = async (event) => {
     try {
@@ -13,13 +10,11 @@ const webhookHandler = async (event) => {
             }
         };
         
-        axios.put(URL, options)
-            .then(() => console.warn("nothing will happen"))
-            .catch((error) => console.error(error.message));
-        
-        await delayForFiveSeconds();
+        cancelAfterFiveSeconds();
 
-        source.cancel("Request cancelled to avoid going over runtime limit");
+        await axios.put(URL, options)
+            .then(() => console.log("API Call Successful!"))
+            .catch((error) => { throw error });
             
         return new Response('Match update started', { status: 200 });
     } catch (error) {
