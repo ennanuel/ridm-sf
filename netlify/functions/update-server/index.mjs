@@ -13,7 +13,7 @@ const webhookHandler = async () => {
         cancelAfterFiveSeconds();
 
         await axios.put(URL, {}, options)
-            .then(() => console.warn("nothing will happen"))
+            .then((result) => console.warn(result))
             .catch((error) => { throw error });
 
         return new Response('Update Started!', { status: 200 });
