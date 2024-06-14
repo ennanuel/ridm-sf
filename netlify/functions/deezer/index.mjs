@@ -6,7 +6,7 @@ async function deezerHandler(req) {
         const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
 
         const { path, ...params } = queries;
-        const URL = `${Netlify.env.get("DEEZER_URL")}/${path}`;
+        const URL = `https://api.deezer.com/${path}`;
 
         const response = await axios.get(URL, { params });
 
