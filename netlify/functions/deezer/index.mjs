@@ -5,7 +5,10 @@ async function deezerHandler(req) {
         const url = req.url;
         const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '').split(/(\?|\&)/).map(query => query.split('='));
         const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
-        return new Response(JSON.stringify(queries), { status: 200 });
+        return {
+            body: JSON.stringify(queries),
+            statusCode: 200
+        };
 
         const { path } = req.query;
 
