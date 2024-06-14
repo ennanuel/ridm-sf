@@ -3,13 +3,16 @@ import axios from "axios";
 async function deezerHandler(req) {
     try {
         const url = req.url;
-        const pathname = new URL(req.url).searchParams.get('url');
-        const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '');
-        return new Response(pathname, { status: 200 });
+        const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '').split(/(\?|\&)/).map(query => query.split('='));
+        const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
+        return {
+            body: queries,
+            statusCode: 200
+        }
 
-        // const { path } = req.query;
+        const { path } = req.query;
 
-        // const URL = `${process.env.DEEZER_URL}${path}`;
+        const URL = `${process.env.DEEZER_URL}${path}`;
 
         const response = await axios.get(URL, { params });
 
