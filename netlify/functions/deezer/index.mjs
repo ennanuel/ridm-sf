@@ -3,7 +3,9 @@ import axios from "axios";
 async function deezerHandler(req) {
     try {
         const url = req.url;
-        return new Response(url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, ''), { status: 200 });
+        const pathname = new URL(req.url).searchParams.get('url');
+        const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '');
+        return new Response(pathname, { status: 200 });
 
         const { path } = req.query;
 
