@@ -7,9 +7,9 @@ async function deezerHandler(req) {
         const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '');
         return new Response(pathname, { status: 200 });
 
-        const { path } = req.query;
+        // const { path } = req.query;
 
-        const URL = `${process.env.DEEZER_URL}${path}`;
+        // const URL = `${process.env.DEEZER_URL}${path}`;
 
         const response = await axios.get(URL, { params });
 
