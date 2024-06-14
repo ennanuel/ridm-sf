@@ -12,7 +12,7 @@ async function deezerHandler(req) {
 
         console.log("API call successful!");
         
-        return new Response(JSON.stringify(response.data), URL, 200);
+        return new Response(JSON.stringify(response.data) + URL, 200);
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
