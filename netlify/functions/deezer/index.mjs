@@ -2,6 +2,9 @@ import axios from "axios";
 
 async function deezerHandler(req) {
     try {
+        const url = req.url;
+        return Response(url, { status: 200 });
+
         const { path } = req.query;
 
         const URL = `${process.env.DEEZER_URL}/${path}`;
