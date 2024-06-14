@@ -3,11 +3,11 @@ import axios from "axios";
 async function deezerHandler(req) {
     try {
         const url = req.url;
-        return new Response(url, { status: 200 });
+        return new Response(url.replace(/https:\/\/scoreplug-webhook.netlify.app\/api\/deezer/), { status: 200 });
 
         const { path } = req.query;
 
-        const URL = `${process.env.DEEZER_URL}/${path}`;
+        const URL = `${process.env.DEEZER_URL}${path}`;
 
         const response = await axios.get(URL, { params });
 
