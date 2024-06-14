@@ -2,8 +2,7 @@ import axios from "axios";
 
 async function deezerHandler(req) {
     try {
-        const url = req.url;
-        const queryString = url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '').split(/(\?|\&)/).map(query => query.split('='));
+        const queryString = req.url.replace(/(https|http):\/\/(\w|.)+app\/api\/deezer(\/)*/, '').split(/(\?|\&)/).map(query => query.split('='));
         const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
 
         const { path, ...params } = queries;
@@ -13,7 +12,7 @@ async function deezerHandler(req) {
 
         console.log("API call successful!");
         
-        return new Response(JSON.stringify(response.data), 200);
+        return new Response(JSON.stringify(response.data), URL, 200);
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
