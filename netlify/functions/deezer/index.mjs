@@ -14,7 +14,13 @@ async function deezerHandler(req) {
 
         const response = await axios.get(URL, { params });
         
-        return Response.json(response.data, { status: 200 });
+        return Response.json(
+            response.data,
+            {
+                status: 200,
+                headers: { 'Access-Control-Allow-Origin': '*' }
+            }
+        );
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
