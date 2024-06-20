@@ -2,15 +2,13 @@ import axios from "axios";
 
 async function deezerHandler(req) {
     try {
-        const queryString = req.url
-            .replace(/(https|http):\/\/(\w|-|.)+app\/ridm\/music-data(\/)*/, '')
-            .split(/(\?|\&)/)
-            .map(query => query.split('='));
-        
-        const queries = queryString
-            .map(([key, entry]) => ({ [key]: entry }))
+        const queries = req.url
+            .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
+            .replace(/\?|\&/, ' ')
+            .split(' ')
+            .map(query => ({ [query.split('=')[0]]: query.split('=')[1] }))
             .reduce((entries, entry) => ({ ...entries, ...entry }), {});
-
+            
         const { path, ...params } = queries;
         const URL = `${process.env.DEEZER_URL}/${path}`;
 
