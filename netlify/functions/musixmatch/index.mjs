@@ -2,8 +2,11 @@ import axios from "axios";
 
 async function musixMatchHandler(req) {
     try {
-        const { path, ...query } = req.query;
-        const params = { ...query, apikey: process.env.MUSIXMATCH_API_KEY };
+        const queryString = req.url.replace(/(https|http):\/\/(\w|.)+app\/ridm\/lyrics(\/)*/, '').split(/(\?|\&)/).map(query => query.split('='));
+        const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
+
+        const { path } = queries;
+        const params = { ...queries, apikey: process.env.MUSIXMATCH_API_KEY };
 
         const URL = `${process.env.MUSIXMATCH_URL}/${path}`;
 
