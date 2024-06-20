@@ -6,13 +6,13 @@ async function deezerHandler(req) {
         const queries = queryString.map(([key, entry]) => ({ [key]: entry })).reduce((entries, entry) => ({ ...entries, ...entry }), {});
 
         const { path, ...params } = queries;
-        const URL = `https://api.deezer.com/${path}`;
+        const URL = `${process.env.DEEZER_URL}/${path}`;
 
         const response = await axios.get(URL, { params });
 
         console.log("API call successful!");
         
-        return new Response(JSON.stringify(response.data) + URL, 200);
+        return (new Response(JSON.stringify(response.data) + URL, 200)).json();
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
