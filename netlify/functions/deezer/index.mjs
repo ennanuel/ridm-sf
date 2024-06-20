@@ -10,7 +10,7 @@ async function deezerHandler(req) {
 
         const response = await axios.get(URL, { params });
         
-        return (new Response(JSON.stringify(response.data), 200)).json();
+        return (new Response(response.data, 200));
     } catch (error) {
         console.error(error);
         return new Response(error.message, { status: 500 });
