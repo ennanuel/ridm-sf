@@ -3,7 +3,7 @@ import axios from "axios";
 async function musixMatchHandler(req) {
     try {
         const queryString = req.url
-            .replace(/(https|http):\/\/(\w|.)+app\/ridm\/lyrics(\/)*/, '')
+            .replace(/(https|http):\/\/(\w|-|.)+app\/ridm\/lyrics(\/)*/, '')
             .split(/(\?|\&)/)
             .map(query => query.split('='));
         

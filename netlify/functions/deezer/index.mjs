@@ -3,7 +3,7 @@ import axios from "axios";
 async function deezerHandler(req) {
     try {
         const queryString = req.url
-            .replace(/(https|http):\/\/(\w|.)+app\/ridm\/music-data(\/)*/, '')
+            .replace(/(https|http):\/\/(\w|-|.)+app\/ridm\/music-data(\/)*/, '')
             .split(/(\?|\&)/)
             .map(query => query.split('='));
         

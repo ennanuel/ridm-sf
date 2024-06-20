@@ -1,7 +1,7 @@
 import axios from "axios";
 import { cancelAfterFiveSeconds } from "../../../utils/cancel";
 
-const webhookHandler = async (event) => {
+const requestHandler = async (event) => {
     try {
         const URL = `${process.env.SERVER_URL}/maintenance/update/match`;
         const headers = {
@@ -23,8 +23,8 @@ const webhookHandler = async (event) => {
     }
 };
 
-export default webhookHandler;
+export default requestHandler;
 
 export const config = {
-    path: "/match-update"
+    path: "/scoreplug/match-update"
 };
