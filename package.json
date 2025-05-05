@@ -1,12 +1,20 @@
 {
-  "name": "webhook",
-  "version": "1.0.0",
-  "description": "This webhook event handler handles the daily update of my Score Plug server.",
+  "name": "Ridm functions",
+  "version": "1.2.0",
+  "description": "This houses the code for the serverless functions for Ridm.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ennanuel/nCheck-webhook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ennanuel/nCheck-webhook/issues"
+  },
+  "homepage": "https://github.com/ennanuel/ncheck-webhook#readme",
   "keywords": [
     "Node",
     "Webhook",
