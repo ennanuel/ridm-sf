@@ -2,8 +2,8 @@ import axios from "axios";
 
 async function musixMatchHandler(req) {
     try {
-        console.log(`Request made by: ${req.headers.get('User-Agent')}`);
-        
+        console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
+
         const queries = req.url
             .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
             .replace(/\?|\&/, ' ')
