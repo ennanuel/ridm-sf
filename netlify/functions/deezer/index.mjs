@@ -2,6 +2,8 @@ import axios from "axios";
 
 async function deezerHandler(req) {
     try {
+        console.log(`Request made by: ${req.headers.get('User-Agent')}`);
+        
         const queries = req.url
             .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
             .replace(/\?|\&/, ' ')
