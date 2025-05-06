@@ -34,5 +34,5 @@ async function musixMatchHandler(req) {
 export default musixMatchHandler;
 
 export const config = {
-    path: "/ridm/lyrics"
+    path: "/lyrics"
 };

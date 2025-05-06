@@ -32,5 +32,5 @@ async function deezerHandler(req) {
 export default deezerHandler;
 
 export const config = {
-    path: "/ridm/music-data"
+    path: "/music-data"
 }
