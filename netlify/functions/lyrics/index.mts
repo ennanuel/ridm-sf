@@ -1,15 +1,15 @@
 import axios from "axios";
 import { getParamsOutOfUrl } from "../../../utils/url";
-import { getSong } from "genius-lyrics-api";
+import { getLyrics } from "genius-lyrics-api";
 
-async function musixMatchHandler(req) {
+async function musixMatchHandler(req: Request) {
     let response;
 
     try {
         console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
 
-        const queries = getParamsOutOfUrl(req.url);        
-        
+        const queries = getParamsOutOfUrl(req.url);   
+                
         const URL = `${process.env.DEEZER_URL}/track/${queries?.songId}`;
         const result = await axios.get(URL);
         const song = result.data;
@@ -21,11 +21,9 @@ async function musixMatchHandler(req) {
             optimizeQuery: true
         };
 
-        const lyrics = await getSong(options);
+        const lyrics = await getLyrics(options);
 
-        console.log(lyrics, queries?.songId, song)
-
-        response = new Response(JSON.stringify({ ...lyrics, ...song, songId: queries?.songId }), { status: 200 });
+        response = new Response(JSON.stringify(lyrics), { status: 200 });
     } catch (error) {
         console.error(error.message);
         response = new Response(JSON.stringify({ message: error.message }), { status: 500 });
