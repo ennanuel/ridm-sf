@@ -17,13 +17,13 @@ async function musixMatchHandler(req) {
         const options = {
             apiKey: process.env.GENIUS_CILENT_ACCESS_TOKEN,
             title: song.title,
-            artist: song.artist.name,
+            artist: song.artist?.name,
             optimizeQuery: true
         };
 
         const lyrics = await getSong(options);
 
-        console.log(lyrics, songId, song.title)
+        console.log(lyrics, queries?.songId, song)
 
         response = new Response(JSON.stringify({ ...lyrics, ...song, songId: queries?.songId }), { status: 200 });
     } catch (error) {
