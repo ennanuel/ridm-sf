@@ -27,7 +27,7 @@ async function musixMatchHandler(req) {
 
         response = new Response(JSON.stringify({ ...lyrics, ...song, songId: queries?.songId }), { status: 200 });
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         response = new Response(JSON.stringify({ message: error.message }), { status: 500 });
     } finally {
         response.headers.append('Access-Control-Allow-Origin', '*');
