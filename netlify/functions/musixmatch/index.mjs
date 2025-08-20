@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getParamsOutOfUrl } from "../../../utils/url";
+import { getLyrics } from "genius-lyrics-api";
 
 async function musixMatchHandler(req) {
     let response;
