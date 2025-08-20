@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getParamsOutOfUrl } from "../../../utils/url";
 
 async function musixMatchHandler(req) {
     let response;
@@ -6,21 +7,22 @@ async function musixMatchHandler(req) {
     try {
         console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
 
-        const queries = req.url
-            .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
-            .replace(/\?|\&/, ' ')
-            .split(' ')
-            .map(query => ({ [query.split('=')[0]]: query.split('=')[1] }))
-            .reduce((entries, entry) => ({ ...entries, ...entry }), {});
-            
-        const { path } = queries;
-        const params = { ...queries, apikey: process.env.MUSIXMATCH_API_KEY };
+        const queries = getParamsOutOfUrl(req.url);        
+        
+        const URL = `${process.env.DEEZER_URL}/track/${queries?.songId}`;
+        const result = await axios.get(URL);
+        const song = result.data;
 
-        const URL = `${process.env.MUSIXMATCH_URL}/${path}`;
+        const options = {
+            apiKey: process.env.GENIUS_CILENT_ACCESS_TOKEN,
+            title: song.title,
+            artist: song.artist.name,
+            optimizeQuery: true
+        };
 
-        const result = await axios.get(URL, { params });
+        const lyrics = await getLyrics(options);
 
-        response = new Response(JSON.stringify(result.data), { status: 200 });
+        response = new Response(JSON.stringify(lyrics), { status: 200 });
     } catch (error) {
         console.error(error);
         response = new Response(JSON.stringify({ message: error.message }), { status: 500 });
