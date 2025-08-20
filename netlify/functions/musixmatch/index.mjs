@@ -23,6 +23,8 @@ async function musixMatchHandler(req) {
 
         const lyrics = await getLyrics(options);
 
+        console.log(lyrics, songId, song.title)
+
         response = new Response(JSON.stringify({ ...lyrics, ...song, songId: queries?.songId }), { status: 200 });
     } catch (error) {
         console.error(error);
