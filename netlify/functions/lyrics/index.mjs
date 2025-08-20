@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getParamsOutOfUrl } from "../../../utils/url";
-import { getLyrics } from "genius-lyrics-api";
+import { getSong } from "genius-lyrics-api";
 
 async function musixMatchHandler(req) {
     let response;
@@ -21,7 +21,7 @@ async function musixMatchHandler(req) {
             optimizeQuery: true
         };
 
-        const lyrics = await getLyrics(options);
+        const lyrics = await getSong(options);
 
         console.log(lyrics, songId, song.title)
 
