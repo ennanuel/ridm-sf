@@ -41,6 +41,17 @@ function selectElementByCommentContent(content: any, commentContent: string): st
 
 	const $ = cheerioLoad(content);
 
+	const res: string[] = [];
+
+	$('div').each((_, el) => {
+		const strEl = $(el).html();
+		res.push(strEl || '');
+	});
+
+	console.log(res);
+	
+	return res.join(' ');
+
 	$('div').each((_, element) => {
 		$(element).contents().each((_, node) => {
 			if (node.type === 'comment' && node.data.includes(commentContent)) {
