@@ -4,8 +4,6 @@ import { getParamsOutOfUrl, getSong, generateGeniusApiOption } from "../../../ut
 async function musixMatchHandler(req: Request) {
     let response;
 
-    return new Response(JSON.stringify({ message: "hello" }), { status: 200 });
-
     try {
         console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
 
