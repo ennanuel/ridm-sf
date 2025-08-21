@@ -10,6 +10,7 @@ export default async function getSong (options: Options) {
 	try {
 		checkOptions(options);
 		let results = await searchSong(options);
+		return results;
 		if (!results) return null;
 		let lyrics = await extractLyrics(results[0].url);
 		return {
