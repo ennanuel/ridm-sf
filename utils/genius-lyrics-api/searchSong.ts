@@ -17,10 +17,7 @@ export default async function searchSong (options: Options) {
 			...userAgentHeader,
 			Authorization: `Bearer ${apiKey}`
 		};
-		let { data } = await axios.get(
-			`${reqUrl}&access_token=${apiKey}`,
-			{ headers }
-		);
+		let { data } = await axios.get(reqUrl, { headers });
 		if (data.response.hits.length === 0) return null;
 		const results = data.response.hits.map((val) => {
 			const { full_title, song_art_image_url, id, url } = val.result;
