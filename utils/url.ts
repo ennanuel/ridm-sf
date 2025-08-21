@@ -18,6 +18,5 @@ export function generateGeniusApiOption(songTitle: string, artistName: string): 
         title: songTitle,
         artist: artistName,
         optimizeQuery: true,
-        authHeader: true
     };
 }

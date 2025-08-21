@@ -10,7 +10,7 @@ const SEARCH_URL = 'https://api.genius.com/search?q=';
 export default async function searchSong (options: Options) {
 	try {
 		checkOptions(options);
-		let { apiKey, title, artist, optimizeQuery = false, authHeader = false } = options;
+		let { apiKey, title, artist, optimizeQuery = false } = options;
 		const song = optimizeQuery ? getTitle(title, artist) : `${title} ${artist}`;
 		const reqUrl = `${SEARCH_URL}${encodeURIComponent(song)}`;
 		const headers = {
@@ -18,8 +18,8 @@ export default async function searchSong (options: Options) {
 			Authorization: `Bearer ${apiKey}`
 		};
 		let { data } = await axios.get(
-			authHeader ? reqUrl : `${reqUrl}&access_token=${apiKey}`,
-			authHeader ? { headers } : undefined
+			`${reqUrl}&access_token=${apiKey}`,
+			{ headers }
 		);
 		if (data.response.hits.length === 0) return null;
 		const results = data.response.hits.map((val) => {

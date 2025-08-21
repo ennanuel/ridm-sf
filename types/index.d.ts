@@ -5,5 +5,4 @@ export interface Options {
     title: string;
     artist: string;
     optimizeQuery?: boolean;
-    authHeader?: boolean;
 }
