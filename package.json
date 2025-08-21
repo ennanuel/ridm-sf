@@ -1,11 +1,11 @@
 {
-  "name": "Ridm functions",
+  "name": "ridm-sf",
   "version": "1.2.0",
   "description": "This houses the code for the serverless functions for Ridm.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node index.js"
+    "dev": "netlify dev"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "author": "Emmanuel Ezema",
   "license": "ISC",
   "dependencies": {
+    "@netlify/functions": "^4.2.2",
     "axios": "^1.9.0"
   }
 }
