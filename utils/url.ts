@@ -1,6 +1,7 @@
+import { Options } from "../types";
 
 
-export function getParamsOutOfUrl(url) {
+export function getParamsOutOfUrl(url: string) {
     const params = url
         .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
         .replace(/\?|\&/, ' ')
@@ -9,4 +10,14 @@ export function getParamsOutOfUrl(url) {
         .reduce((entries, entry) => ({ ...entries, ...entry }), {});
 
     return params;
+};
+
+export function generateGeniusApiOption(songTitle: string, artistName: string): Options {
+    return {
+        apiKey: String(process.env.GENIUS_CILENT_ACCESS_TOKEN),
+        title: songTitle,
+        artist: artistName,
+        optimizeQuery: true,
+        authHeader: true
+    };
 }
