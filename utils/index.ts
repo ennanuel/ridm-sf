@@ -1,8 +1,8 @@
 
 
 import cancelAfterFiveSeconds from "./cancel";
-import getLyrics from "./genius-lyrics-api/getLyrics";
-import getSong from "./genius-lyrics-api/getSong";
+import getLyrics from "./lyrics/getLyrics";
+import getSong from "./lyrics/getSong";
 import { getParamsOutOfUrl, generateGeniusApiOption } from "./url";
 
 
