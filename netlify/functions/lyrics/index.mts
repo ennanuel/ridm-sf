@@ -12,7 +12,7 @@ async function musixMatchHandler(req: Request) {
         const result = await axios.get(`${process.env.DEEZER_URL}/track/${queries?.songId}`);
         const song = result.data;        
         const lyrics = await getLyrics(song?.title, song?.artist?.name);
-        response = new Response(JSON.stringify({ data: lyrics }), { status: 200 });
+        response = new Response(JSON.stringify({ lyrics }), { status: 200 });
     } catch (error) {
         console.error(error);
         response = new Response(JSON.stringify({ message: error.message }), { status: 500 });

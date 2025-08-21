@@ -19,7 +19,7 @@ export default async function getLyrics2 (songTitle?: string, artistName?: strin
 
             const { data } = await axios.get(url, { headers: HEADERS });
             const lyrDat = selectElementByCommentContent(data, SEARCH_TEXT);
-            return lyrDat.toString();
+            return lyrDat;
         } else {
             throw new Error('Song has to have a title and artist name')
         }
