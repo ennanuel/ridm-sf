@@ -8,7 +8,6 @@ async function musixMatchHandler(req: Request) {
     try {
         console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
         const song = await getDeezerSong(req.url);
-        if (!song) throw { message: "Song wasn't found", statusCode: 404 };
         const lyrics = await getLyrics(song.title, song.artist.name);
         response = new Response(JSON.stringify(lyrics), { status: 200 });
     } catch (error) {
@@ -18,7 +17,7 @@ async function musixMatchHandler(req: Request) {
             { status: error?.statusCode || 500 }
         );
     } finally {
-        response.headers.append('Access-Control-Allow-Origin', '*');
+        response.headers.append('Access-Control-Allow-Origin', 'https://ridm.netlify.app');
         return response;
     }
 };
