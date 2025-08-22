@@ -18,7 +18,7 @@ async function musixMatchHandler(req: Request) {
         );
     }
 
-    console.log(response.headers.get('Accept-Control-Allow-Origin'));
+    response.headers.append('Access-Control-Allow-Origin', '*');
     return response;
 };
 
