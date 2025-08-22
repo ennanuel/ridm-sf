@@ -17,8 +17,8 @@ async function musixMatchHandler(req: Request) {
             { status: error?.statusCode || 500 }
         );
     }
-    
-    response.headers.append('Access-Control-Allow-Origin', '*');
+
+    console.log(response.headers.get('Accept-Control-Allow-Origin'));
     return response;
 };
 
