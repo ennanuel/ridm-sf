@@ -3,7 +3,7 @@ import { getLyrics, getDeezerSong } from "../../../utils";
 
 
 async function musixMatchHandler(req: Request) {
-    let response;
+    let response: Response;
 
     try {
         console.log(`Request made by: ${req.headers.get('User-Agent')}\n Request content: ${req.url}`);
@@ -16,10 +16,10 @@ async function musixMatchHandler(req: Request) {
             JSON.stringify({ message: error.message }), 
             { status: error?.statusCode || 500 }
         );
-    } finally {
-        response.headers.append('Access-Control-Allow-Origin', 'https://ridm.netlify.app');
-        return response;
     }
+    
+    response.headers.append('Access-Control-Allow-Origin', '*');
+    return response;
 };
 
 export default musixMatchHandler;
