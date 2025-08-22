@@ -1,20 +1,14 @@
 import axios from "axios";
+import { getParamsOutOfUrl } from "../../../utils";
 
 async function deezerHandler(req) {
     let response;
 
     try {
-        const queries = req.url
-            .replace(/\w+:\/\/((\w|\-|\.)+\/*)+\?/, '')
-            .replace(/\?|\&/, ' ')
-            .split(' ')
-            .map(query => ({ [query.split('=')[0]]: query.split('=')[1] }))
-            .reduce((entries, entry) => ({ ...entries, ...entry }), {});
-            
+        const queries = getParamsOutOfUrl(req.url);
         const { path, ...params } = queries;
-        const URL = `${process.env.DEEZER_URL}/${path}`;
-
-        const result = await axios.get(URL, { params });
+        const url = `${process.env.DEEZER_URL}/${path}`;
+        const result = await axios.get(url, { params });
         response = new Response(JSON.stringify(result.data), { status: 200 });
     } catch (error) {
         console.error(error);
